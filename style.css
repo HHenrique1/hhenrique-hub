@@ -61,7 +61,7 @@ header p{
 }
 
 .large{
-    grid-column:1/3;
+    grid-column:auto;
 }
 
 .card{

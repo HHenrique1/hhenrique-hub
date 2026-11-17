@@ -13,8 +13,6 @@ atualizarHorario();
 setInterval(atualizarHorario, 1000);
 
 // ===== FRASE DO DIA =====
-// AS FRASES FICAM AQUI: para adicionar, é só incluir uma linha nova.
-// Todas terminam com vírgula, menos a última.
 const quotes = [
     "Disciplina constrói o que a motivação só promete.",
     "Quem estuda hoje manda no amanhã.",

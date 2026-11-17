@@ -54,29 +54,42 @@ header p{
 }
 
 .dashboard{
-    max-width:1300px;   /* era 1700px */
-    gap:16px;
+    width:95%;
+    max-width:1500px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);   /* 3 colunas = cards bem menores */
+    gap:20px;
+
+    padding-bottom:50px;
 }
 
 .card{
-    /* remove a altura fixa e usa a proporção do banner */
-    aspect-ratio: 21 / 6;      /* ajuste conforme a proporção real da sua imagem */
-    max-height: 200px;         /* deixa menor */
-
     border-radius:22px;
     overflow:hidden;
-    transition:all .35s ease;
     border:2px solid rgba(255,255,255,.08);
     cursor:pointer;
     position:relative;
-    background:#0a0a0a;        /* cor de fundo caso sobre espaço */
+    background:#0a0a0a;
+    transition:all .35s ease;
 }
 
 .card img{
-    object-fit:cover;
-    object-position:left center;   /* mantém o texto/título à esquerda visível */
+    display:block;
+    width:100%;
+    height:auto;          /* segue a proporção real da imagem */
+    transition:transform .4s ease;
 }
 
 .card:hover img{
-    transform:scale(1.03);     /* zoom mais sutil pra não estourar a borda */
+    transform:scale(1.04);
+}
+
+/* telas menores */
+@media (max-width:1100px){
+    .dashboard{ grid-template-columns:repeat(2, 1fr); }
+}
+@media (max-width:700px){
+    .dashboard{ grid-template-columns:1fr; }
 }

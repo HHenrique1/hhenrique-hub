@@ -94,31 +94,114 @@ header p{
     .dashboard{ grid-template-columns:1fr; }
 }
 
+/* ===== BARRA DE BUSCA ===== */
 .search{
     width:95%;
-    max-width:600px;
-    margin:0 auto 25px;
+    max-width:760px;
+    margin:0 auto 30px;
+
     display:flex;
-    gap:10px;
-}
-.search input{
-    flex:1;
-    padding:12px 18px;
+    align-items:center;
+    gap:0;
+
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
     border-radius:999px;
-    border:2px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.04);
-    color:white;
-    font-size:1rem;
-    outline:none;
-    transition:border-color .3s;
+    padding:6px;
+
+    backdrop-filter:blur(10px);
+    transition:border-color .3s, box-shadow .3s;
 }
-.search input:focus{ border-color:#6ea8ff; }
-.search button{
-    padding:12px 22px;
-    border-radius:999px;
+
+.search:focus-within{
+    border-color:#6ea8ff;
+    box-shadow:0 0 20px rgba(110,168,255,.25);
+}
+
+/* seletor de escopo */
+.search select{
+    appearance:none;
+    -webkit-appearance:none;
+
+    background:rgba(110,168,255,.12);
+    color:#cfe0ff;
     border:none;
-    background:#6ea8ff;
-    color:#050505;
+    border-radius:999px;
+
+    padding:10px 36px 10px 18px;
+    font-size:.9rem;
     font-weight:600;
     cursor:pointer;
+    outline:none;
+
+    /* setinha customizada */
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%236ea8ff' stroke-width='2' stroke-linecap='round'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+}
+
+.search select option{
+    background:#0d0d14;
+    color:white;
+}
+
+/* campo de texto */
+.search input{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:white;
+    font-size:1rem;
+    padding:10px 16px;
+}
+
+.search input::placeholder{
+    color:#7c8599;
+}
+
+/* botão */
+.search button{
+    border:none;
+    border-radius:999px;
+    padding:10px 26px;
+
+    background:linear-gradient(135deg,#6ea8ff,#8a7bff);
+    color:#050505;
+    font-weight:700;
+    font-size:.9rem;
+    cursor:pointer;
+    transition:transform .2s, box-shadow .2s;
+}
+
+.search button:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 16px rgba(110,168,255,.5);
+}
+
+/* ===== FRASE DO DIA ===== */
+.quote{
+    margin:14px auto 0;
+    max-width:600px;
+}
+
+.quote p{
+    display:inline;
+    font-style:italic;
+    color:#c9cfdd;
+    font-size:.95rem;
+}
+
+.quote span{
+    display:inline;
+    margin-left:8px;
+    font-size:.75rem;
+    letter-spacing:2px;
+    color:#6ea8ff;
+    font-weight:600;
+}
+
+/* respiro do cabeçalho */
+header{
+    padding:20px 20px 25px;
 }

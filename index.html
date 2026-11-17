@@ -13,33 +13,35 @@
 
 <header>
     <h1>HHenrique</h1>
-
-    <script>
-const SP_SEARCH_URL = "https://hhqueiroz.sharepoint.com/sites/HHENRIQUE/SitePages/Home.aspx";
-
-const form = document.getElementById("searchForm");
-console.log("formulário encontrado?", form);
-
-form.addEventListener("submit", e => {
-    e.preventDefault();
-    const q = document.getElementById("searchInput").value.trim();
-    if(!q) return;
-
-    const url = `${SP_SEARCH_URL}?q=${encodeURIComponent(q)}`;
-    console.log("abrindo:", url);
-    window.open(url, "_blank");
-});
-</script>
-
+    <p>Digital Command Center</p>
     <div id="clock"></div>
+
+    <div class="quote">
+        <p id="quoteText"></p>
+        <span id="quoteAuthor"></span>
+    </div>
 </header>
+
+<form class="search" id="searchForm">
+    <select id="searchScope">
+        <option value="all">Tudo</option>
+        <option value="docs">Documentos Pessoais</option>
+        <option value="estudos">Estudos</option>
+        <option value="financas">Finanças</option>
+        <option value="trabalho">Arquivos de Trabalho</option>
+        <option value="hobbies">Hobbies</option>
+        <option value="ia">IA Lab</option>
+    </select>
+    <input id="searchInput" type="text" placeholder="Buscar nos meus arquivos... (aperte / )" autocomplete="off">
+    <button type="submit">Buscar</button>
+</form>
 
 <main class="dashboard">
 
-    <a class="card large"
+    <a class="card"
        href="https://hhqueiroz.sharepoint.com/sites/HHENRIQUE/Documentos%20Compartilhados/Documentos%20Pessoais"
        target="_self">
-       <img src="assets/doc pessoal.png" alt="Documentos">
+       <img src="assets/doc pessoal.png" alt="Documentos Pessoais">
     </a>
 
     <a class="card"
@@ -57,7 +59,7 @@ form.addEventListener("submit", e => {
     <a class="card"
        href="https://hhqueiroz.sharepoint.com/sites/HHENRIQUE/Documentos%20Compartilhados/Arquivos%20de%20Trabalho"
        target="_self">
-       <img src="assets/arqtrab.png" alt="Trabalho">
+       <img src="assets/arqtrab.png" alt="Arquivos de Trabalho">
     </a>
 
     <a class="card"
@@ -66,17 +68,83 @@ form.addEventListener("submit", e => {
        <img src="hobbie.png" alt="Hobbies">
     </a>
 
-     <a class="card"
-   href="https://hhqueiroz.sharepoint.com/sites/HHENRIQUE/Documentos%20Compartilhados/IA%20Lab"
-   target="_self">
-
-   <img src="ialab.png" alt="IA LAB">
-
-</a>
+    <a class="card"
+       href="https://hhqueiroz.sharepoint.com/sites/HHENRIQUE/Documentos%20Compartilhados/IA%20Lab"
+       target="_self">
+       <img src="ialab.png" alt="IA Lab">
+    </a>
 
 </main>
 
-<script src="script.js"></script>
+<script>
+// ===== RELÓGIO =====
+function atualizarRelogio(){
+    const el = document.getElementById("clock");
+    if(!el) return;
+    const agora = new Date();
+    const data = agora.toLocaleDateString("pt-BR", {
+        weekday:"long", day:"numeric", month:"long", year:"numeric"
+    });
+    el.textContent = `${data} às ${agora.toLocaleTimeString("pt-BR")}`;
+}
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
+
+// ===== FRASE DO DIA =====
+const quotes = [
+    { text: "Disciplina constrói o que a motivação só promete.", author: "KILLUA" },
+    { text: "Quem estuda hoje manda no amanhã.",                author: "ROBIN" },
+    { text: "Planeje hoje, conquiste amanhã.",                  author: "ZORO" },
+    { text: "Um passo por dia ainda é progresso.",              author: "ITACHI" },
+    { text: "Descanso também faz parte do treino.",             author: "LUFFY" },
+    { text: "Evoluir é testar o que ninguém testou.",           author: "JINWOO" }
+];
+
+(function(){
+    const now = new Date();
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+    const q = quotes[dayOfYear % quotes.length];
+    document.getElementById("quoteText").textContent = `"${q.text}"`;
+    document.getElementById("quoteAuthor").textContent = `— ${q.author}`;
+})();
+
+// ===== BUSCA =====
+const BASE = "https://hhqueiroz.sharepoint.com/sites/HHENRIQUE";
+const SP_SEARCH_URL = `${BASE}/_layouts/15/search.aspx`;
+
+const scopes = {
+    all:      "",
+    docs:     `${BASE}/Documentos Compartilhados/Documentos Pessoais`,
+    estudos:  `${BASE}/Documentos Compartilhados/Estudos`,
+    financas: `${BASE}/Documentos Compartilhados/Finanças`,
+    trabalho: `${BASE}/Documentos Compartilhados/Arquivos de Trabalho`,
+    hobbies:  `${BASE}/Documentos Compartilhados/Hobbies`,
+    ia:       `${BASE}/Documentos Compartilhados/IA Lab`
+};
+
+document.getElementById("searchForm").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const termo  = document.getElementById("searchInput").value.trim();
+    const escopo = document.getElementById("searchScope").value;
+    if(!termo) return;
+
+    let query = termo;
+    if(scopes[escopo]){
+        query = `${termo} path:"${scopes[escopo]}"`;
+    }
+
+    window.open(`${SP_SEARCH_URL}?q=${encodeURIComponent(query)}`, "_blank");
+});
+
+// atalho: "/" foca na busca
+document.addEventListener("keydown", e => {
+    if(e.key === "/" && document.activeElement.tagName !== "INPUT"){
+        e.preventDefault();
+        document.getElementById("searchInput").focus();
+    }
+});
+</script>
 
 </body>
 </html>

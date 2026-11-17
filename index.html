@@ -14,10 +14,22 @@
 <header>
     <h1>HHenrique</h1>
 
-    <form class="search" id="searchForm">
-    <input id="searchInput" type="text" placeholder="Buscar nos meus arquivos... (aperte / )" autocomplete="off">
-    <button type="submit">Buscar</button>
-</form>
+    <script>
+const SP_SEARCH_URL = "https://hhqueiroz.sharepoint.com/sites/HHENRIQUE/SitePages/Home.aspx";
+
+const form = document.getElementById("searchForm");
+console.log("formulário encontrado?", form);
+
+form.addEventListener("submit", e => {
+    e.preventDefault();
+    const q = document.getElementById("searchInput").value.trim();
+    if(!q) return;
+
+    const url = `${SP_SEARCH_URL}?q=${encodeURIComponent(q)}`;
+    console.log("abrindo:", url);
+    window.open(url, "_blank");
+});
+</script>
 
     <div id="clock"></div>
 </header>

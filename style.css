@@ -93,3 +93,32 @@ header p{
 @media (max-width:700px){
     .dashboard{ grid-template-columns:1fr; }
 }
+
+.search{
+    width:95%;
+    max-width:600px;
+    margin:0 auto 25px;
+    display:flex;
+    gap:10px;
+}
+.search input{
+    flex:1;
+    padding:12px 18px;
+    border-radius:999px;
+    border:2px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+    color:white;
+    font-size:1rem;
+    outline:none;
+    transition:border-color .3s;
+}
+.search input:focus{ border-color:#6ea8ff; }
+.search button{
+    padding:12px 22px;
+    border-radius:999px;
+    border:none;
+    background:#6ea8ff;
+    color:#050505;
+    font-weight:600;
+    cursor:pointer;
+}

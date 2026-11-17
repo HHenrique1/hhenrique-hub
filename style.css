@@ -1,53 +1,6 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#050505;
-    color:white;
-    font-family:'Segoe UI',sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
-}
-
-.background{
-    position:fixed;
-    inset:0;
-
-    background:
-      radial-gradient(circle at 20% 20%, rgba(0,100,255,.25), transparent 30%),
-      radial-gradient(circle at 80% 30%, rgba(180,0,255,.20), transparent 30%),
-      radial-gradient(circle at 50% 80%, rgba(255,70,0,.15), transparent 30%);
-
-    z-index:-1;
-}
-
-header{
-    text-align:center;
-    padding:10px 20px 20px;
-}
-
-header h1{
-    font-size:2.5rem;
-    letter-spacing:8px;
-    margin-bottom:10px;
-}
-
-header p{
-    color:#999;
-    margin-bottom:10px;
-}
-
-#clock{
-    font-size:1rem;
-    color:#6ea8ff;
-}
-
 .dashboard{
     width:95%;
-    max-width:1800px;
+    max-width:1700px;
 
     margin:auto;
 
@@ -55,17 +8,13 @@ header p{
 
     grid-template-columns:repeat(2,1fr);
 
-    gap:25px;
+    gap:20px;
 
     padding-bottom:50px;
 }
 
-.large{
-    grid-column:auto;
-}
-
 .card{
-    height:280px;
+    height:220px;
 
     border-radius:22px;
 
@@ -76,6 +25,8 @@ header p{
     border:2px solid rgba(255,255,255,.08);
 
     cursor:pointer;
+
+    position:relative;
 }
 
 .card img{
@@ -84,33 +35,13 @@ header p{
 
     object-fit:cover;
 
+    object-position:center center;
+
     display:block;
+
+    transition:transform .4s ease;
 }
 
-.card:hover{
-    transform:translateY(-8px) scale(1.02);
-
-    box-shadow:
-    0 0 20px rgba(255,255,255,.15),
-    0 0 40px rgba(87,127,255,.25);
-}
-
-@media(max-width:900px){
-
-.dashboard{
-    grid-template-columns:1fr;
-}
-
-.large{
-    grid-column:auto;
-}
-
-.card{
-    height:240px;
-}
-
-header h1{
-    font-size:2rem;
-}
-
+.card:hover img{
+    transform:scale(1.05);
 }
